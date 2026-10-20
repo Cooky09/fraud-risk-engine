@@ -1,0 +1,40 @@
+services:
+  mysql:
+    image: mysql:8.4
+    container_name: fraud-risk-mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: fraud_risk
+      MYSQL_USER: fraud_app
+      MYSQL_PASSWORD: fraud_password
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - fraud-risk-network
+
+  api:
+    build: .
+    container_name: fraud-risk-api
+    restart: unless-stopped
+    depends_on:
+      - mysql
+    ports:
+      - "8000:8000"
+    environment:
+      DB_HOST: mysql
+      DB_PORT: 3306
+      DB_NAME: fraud_risk
+      DB_USER: fraud_app
+      DB_PASSWORD: fraud_password
+    networks:
+      - fraud-risk-network
+
+volumes:
+  mysql_data:
+
+networks:
+  fraud-risk-network:
+    driver: bridge

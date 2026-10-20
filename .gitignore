@@ -1,0 +1,28 @@
+# Python
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# Environment
+.env
+
+# Data
+data/raw/
+data/processed/
+
+# Models
+models/
+
+# Notebooks
+.ipynb_checkpoints/
+
+# Reports
+reports/generated/
+
+# IDE
+.vscode/
+
+# OS
+.DS_Store
+Thumbs.db
